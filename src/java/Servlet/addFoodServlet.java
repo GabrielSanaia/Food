@@ -152,7 +152,7 @@ public class addFoodServlet extends HttpServlet {
                 String iquantitystr = (String) table.get("quantity_" + n);
                 int iquantity = Integer.parseInt(iquantitystr);
                 String itypeStr = (String) table.get("type_" + n);
-                
+
                 String icomment1 = (String) table.get("comment_" + n);
                 byte commentbytes[] = icomment1.getBytes("ISO-8859-1");
                 String icomment = new String(commentbytes, "UTF-8");
@@ -174,8 +174,8 @@ public class addFoodServlet extends HttpServlet {
                 rd.forward(request, response);
 
             } else {
-
-                Food food = new Food(ins, name, type, cookingway, imagePath);
+                int user_id = (int) request.getSession().getAttribute("id");
+                Food food = new Food(ins, name, type, cookingway, imagePath, user_id);
                 FoodDAO dao = new FoodDAOImpl();
                 dao.addFood(food);
                 RequestDispatcher rd = request.getRequestDispatcher("addfood.jsp");

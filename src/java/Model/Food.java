@@ -16,25 +16,29 @@ public class Food {
     private String cooking_way;
 
     private String imagePath;
+    
+    private int user_id;
 
     public Food() {
     }
+    
+       public Food(ArrayList<Ingredient> ingredients, String name, FoodType foodtype, String cooking_way, String imagePath, int user_id) {
+        this.ingredients = ingredients;
+        this.name = name;
+        this.foodtype = foodtype;
+        this.cooking_way = cooking_way;
+        this.imagePath = imagePath;
+        this.user_id = user_id;
+    }
 
-    public Food(int id, ArrayList<Ingredient> ingredients, String name, FoodType foodtype, String cooking_way, String imagePath) {
+    public Food(int id, ArrayList<Ingredient> ingredients, String name, FoodType foodtype, String cooking_way, String imagePath, int user_id) {
         this.id = id;
         this.ingredients = ingredients;
         this.name = name;
         this.foodtype = foodtype;
         this.cooking_way = cooking_way;
         this.imagePath = imagePath;
-    }
-
-    public Food(ArrayList<Ingredient> ingredients, String name, FoodType foodtype, String cooking_way, String imagePath) {
-        this.ingredients = ingredients;
-        this.name = name;
-        this.foodtype = foodtype;
-        this.cooking_way = cooking_way;
-        this.imagePath = imagePath;
+        this.user_id = user_id;
     }
 
     public int getId() {
@@ -84,6 +88,16 @@ public class Food {
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
     }
+
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
+    
+    
 
     @Override
     public String toString() {

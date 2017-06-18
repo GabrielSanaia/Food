@@ -36,12 +36,13 @@ public class FoodDAOImpl implements FoodDAO {
 
             ArrayList<Ingredient> inArray = food.getIngredients();
             String ingredients = Ingredient.objectsToString(inArray);
-            pstmt = con.prepareStatement("INSERT INTO FOOD (name,foodtype,cooking_way,ingredients,imagePath) VALUES (?,?,?,?,?);");
+            pstmt = con.prepareStatement("INSERT INTO FOOD (name,foodtype,cooking_way,ingredients,imagePath,user_id) VALUES (?,?,?,?,?,?);");
             pstmt.setString(1, food.getName());
             pstmt.setString(2, food.getFoodtype().name());
             pstmt.setString(3, food.getCooking_way());
             pstmt.setString(4, ingredients);
             pstmt.setString(5, food.getImagePath());
+            pstmt.setInt(6, food.getUser_id());
             pstmt.executeUpdate();
 
         } catch (SQLException ex) {
@@ -65,10 +66,11 @@ public class FoodDAOImpl implements FoodDAO {
                 String cooking_way = rs.getString("cooking_way");
                 String ingredients = rs.getString("ingredients");
                 String imagePath = rs.getString("imagePath");
+                int user_id = rs.getInt("user_id");
                 ArrayList<Ingredient> ins = new ArrayList<>();
                 ins = Ingredient.stringToObject(ingredients);
 
-                Food food = new Food(id, ins, name, type, cooking_way, imagePath);
+                Food food = new Food(id, ins, name, type, cooking_way, imagePath,user_id);
                 foods.add(food);
 
             }
@@ -91,10 +93,11 @@ public class FoodDAOImpl implements FoodDAO {
                 String cooking_way = rs.getString("cooking_way");
                 String ingredients = rs.getString("ingredients");
                 String imagePath = rs.getString("imagePath");
+                int user_id = rs.getInt("user_id");
                 ArrayList<Ingredient> ins = new ArrayList<>();
                 ins = Ingredient.stringToObject(ingredients);
 
-                Food food = new Food(ins, name, type, cooking_way, imagePath);
+                Food food = new Food(ins, name, type, cooking_way, imagePath , user_id);
                 return food;
             }
         } catch (SQLException ex) {
@@ -121,10 +124,11 @@ public class FoodDAOImpl implements FoodDAO {
                 String cooking_way = rs.getString("cooking_way");
                 String ingredients = rs.getString("ingredients");
                 String imagePath = rs.getString("imagePath");
+                int user_id = rs.getInt("user_id");
                 ArrayList<Ingredient> ins = new ArrayList<>();
                 ins = Ingredient.stringToObject(ingredients);
 
-                Food food = new Food(id, ins, name, type, cooking_way, imagePath);
+                Food food = new Food(id, ins, name, type, cooking_way, imagePath,user_id);
                 foods.add(food);
 
             }

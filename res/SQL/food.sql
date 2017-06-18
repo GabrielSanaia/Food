@@ -5,5 +5,6 @@ CREATE TABLE food(
 	foodtype VARCHAR(10),
 	cooking_way TEXT,
 	ingredients TEXT,
-	imagePath TEXT
+	imagePath TEXT,
+	user_id INT
 );

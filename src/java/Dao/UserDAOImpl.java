@@ -36,7 +36,7 @@ public class UserDAOImpl implements UserDAO {
         try {
 
             pstmt = conn.prepareStatement("INSERT INTO food_user (name,surname,username,password,gender) VALUES (?,?,?,?,?);");
-            
+
             pstmt.setString(1, user.getName());
             pstmt.setString(2, user.getSurName());
             pstmt.setString(3, user.getUsername());
@@ -62,18 +62,18 @@ public class UserDAOImpl implements UserDAO {
             pstmt.setString(1, username);
             pstmt.setString(2, s);
             ResultSet rs = pstmt.executeQuery();
-            
+
             if (rs.next()) {
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
                 String surname = rs.getString("surname");
                 Gender gender = Gender.valueOf(rs.getString("gender"));
-                
+
                 User user = new User(id, name, surname, username, password, gender);
                 return user;
-                
+
             } else {
-                
+
                 return null;
 
             }
@@ -86,6 +86,32 @@ public class UserDAOImpl implements UserDAO {
 
         return null;
 
+    }
+
+    @Override
+    public User getUserById(int id) {
+        try {
+            String sql = "SELECT * FROM food_user WHERE id = ?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+            
+            if (rs.next()) {
+
+                String name = rs.getString("name");
+                String surname = rs.getString("surname");
+                String username = rs.getString("username");
+                String password = rs.getString("password");
+                Gender gender = Gender.valueOf(rs.getString("gender"));
+
+                User user = new User(id, name, surname, username, password, gender);
+                return user;
+
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return null;
     }
 
 }
