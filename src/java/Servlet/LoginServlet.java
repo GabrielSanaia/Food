@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class LoginServlet extends HttpServlet {
 
@@ -32,6 +33,8 @@ public class LoginServlet extends HttpServlet {
             rd.forward(request, response);
         } else if (!username.isEmpty() && !password.isEmpty()) {
             RequestDispatcher rd = request.getRequestDispatcher("Interface.jsp");
+            HttpSession session = request.getSession();
+            session.setAttribute("id", user.getId());
             rd.forward(request, response);
         }
     }

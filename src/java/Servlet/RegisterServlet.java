@@ -27,7 +27,7 @@ public class RegisterServlet extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String gen = request.getParameter("gender");
-        Gender gender = Gender.valueOf(gen);;
+        Gender gender = Gender.valueOf(gen);
         if (name.isEmpty() || surname.isEmpty() || username.isEmpty() || password.isEmpty()) {
             request.setAttribute("registrationFailed", true);
             RequestDispatcher rd = request.getRequestDispatcher("register.jsp");
