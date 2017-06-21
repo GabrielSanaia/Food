@@ -95,4 +95,13 @@
         <servlet-name>foodServlet</servlet-name>
         <url-pattern>/foodServlet</url-pattern>
     </servlet-mapping>
+    
+        <servlet>
+        <servlet-name>changePasswordServlet</servlet-name>
+        <servlet-class>Servlet.changePasswordServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>changePasswordServlet</servlet-name>
+        <url-pattern>/changePasswordServlet</url-pattern>
+    </servlet-mapping>
 </web-app>

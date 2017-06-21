@@ -62,7 +62,7 @@ public class chooseFoodsServlet extends HttpServlet {
         response.setContentType("text/html");
         response.setCharacterEncoding("UTF-8");
 
-        RequestDispatcher rd = request.getRequestDispatcher("Interface.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("chooseMenus.jsp");
         rd.forward(request, response);
 
     }

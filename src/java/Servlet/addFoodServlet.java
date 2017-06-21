@@ -178,7 +178,7 @@ public class addFoodServlet extends HttpServlet {
                 Food food = new Food(ins, name, type, cookingway, imagePath, user_id);
                 FoodDAO dao = new FoodDAOImpl();
                 dao.addFood(food);
-                RequestDispatcher rd = request.getRequestDispatcher("addfood.jsp");
+                RequestDispatcher rd = request.getRequestDispatcher("Interface.jsp");
                 rd.forward(request, response);
             }
 

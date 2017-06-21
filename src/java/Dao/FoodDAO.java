@@ -12,4 +12,6 @@ public interface FoodDAO {
     Food getFoodById(int id);
     
     ArrayList<Food> getFoodByName(String name);
+    
+    ArrayList<Food> getFoodsByUserId(int user_id);
 }

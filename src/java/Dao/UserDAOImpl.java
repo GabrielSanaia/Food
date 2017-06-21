@@ -7,6 +7,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class UserDAOImpl implements UserDAO {
 
@@ -95,7 +97,7 @@ public class UserDAOImpl implements UserDAO {
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, id);
             ResultSet rs = pstmt.executeQuery();
-            
+
             if (rs.next()) {
 
                 String name = rs.getString("name");
@@ -114,4 +116,22 @@ public class UserDAOImpl implements UserDAO {
         return null;
     }
 
+    @Override
+    public void changePassword(int user_id, String oldPassword, String newPassword) {
+
+        try {
+            User user = getUserById(user_id);
+
+            if (Integer.parseInt(user.getPassword()) == oldPassword.hashCode()) {
+
+                pstmt = conn.prepareStatement("UPDATE food_user SET password = ? WHERE id= ? ");
+                pstmt.setInt(1, newPassword.hashCode());
+                pstmt.setInt(2, user_id);
+                pstmt.executeUpdate();
+                
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
 }

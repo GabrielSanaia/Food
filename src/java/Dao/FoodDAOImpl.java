@@ -70,7 +70,7 @@ public class FoodDAOImpl implements FoodDAO {
                 ArrayList<Ingredient> ins = new ArrayList<>();
                 ins = Ingredient.stringToObject(ingredients);
 
-                Food food = new Food(id, ins, name, type, cooking_way, imagePath,user_id);
+                Food food = new Food(id, ins, name, type, cooking_way, imagePath, user_id);
                 foods.add(food);
 
             }
@@ -97,7 +97,7 @@ public class FoodDAOImpl implements FoodDAO {
                 ArrayList<Ingredient> ins = new ArrayList<>();
                 ins = Ingredient.stringToObject(ingredients);
 
-                Food food = new Food(ins, name, type, cooking_way, imagePath , user_id);
+                Food food = new Food(ins, name, type, cooking_way, imagePath, user_id);
                 return food;
             }
         } catch (SQLException ex) {
@@ -111,10 +111,10 @@ public class FoodDAOImpl implements FoodDAO {
         ArrayList<Food> foods = new ArrayList<>();
         try {
             pstmt = con.prepareStatement("SELECT * FROM food WHERE name = ?");
-            
+
             byte namebytes[] = name.getBytes("ISO-8859-1");
             name = new String(namebytes, "UTF-8");
-            
+
             pstmt.setString(1, name);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
@@ -128,14 +128,45 @@ public class FoodDAOImpl implements FoodDAO {
                 ArrayList<Ingredient> ins = new ArrayList<>();
                 ins = Ingredient.stringToObject(ingredients);
 
-                Food food = new Food(id, ins, name, type, cooking_way, imagePath,user_id);
+                Food food = new Food(id, ins, name, type, cooking_way, imagePath, user_id);
                 foods.add(food);
 
             }
 
-        } catch (SQLException  | UnsupportedEncodingException ex) {
+        } catch (SQLException | UnsupportedEncodingException ex) {
             System.out.println(ex.getMessage());
         }
         return foods;
     }
+
+    @Override
+    public ArrayList<Food> getFoodsByUserId(int user_id) {
+        ArrayList<Food> foods = new ArrayList<>();
+        try {
+            pstmt = con.prepareStatement("SELECT * FROM food WHERE user_id = ?");
+            pstmt.setInt(1, user_id);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                String name = rs.getString("name");
+                int id = Integer.parseInt(rs.getString("id"));
+                FoodType type = FoodType.valueOf(rs.getString("foodtype"));
+                String cooking_way = rs.getString("cooking_way");
+                String ingredients = rs.getString("ingredients");
+                String imagePath = rs.getString("imagePath");
+                
+                ArrayList<Ingredient> ins = new ArrayList<>();
+                ins = Ingredient.stringToObject(ingredients);
+
+                Food food = new Food(id, ins, name, type, cooking_way, imagePath, user_id);
+                foods.add(food);
+
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return foods;
+    
+
+}
 }
