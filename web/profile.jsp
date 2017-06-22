@@ -60,7 +60,7 @@
                    
                 </div>
                 <form id="div2" action="changePasswordServlet"  method="post">
-                        <button class="password_button" id="button" onclick="addChangePasswordItems()">პაროლის შეცვლა</button>
+                        <button class="password_button" id="button" formaction="changePassword.jsp">პაროლის შეცვლა</button>
 
                     </form>
                 <br>
@@ -68,35 +68,6 @@
                 <br>
                 <br>
                 
-                <script>
-                    function removeButton() {
-                        var elem = document.getElementById('button');
-                        elem.parentNode.removeChild(elem);
-                        return false;
-                    }
-
-                    addChangePasswordItems = function () {
-
-                        var oldPassword = document.createElement("input");
-                        var newPassword = document.createElement("input");
-                        var button = document.createElement("button");
-                        var br = document.createElement('br');
-                        
-                        oldPassword.placeholder = "შეიყვანეთ ძველი პაროლი";
-                        newPassword.placeholder = "შეიყვანეთ ახალი პაროლი";
-                        oldPassword.className = "password";
-                        newPassword.className = "password";
-                        button.textContent = "დადასტურება";
-                        button.className = "confirm_btn";
-                        button.action = "changePasswordServlet";
-                        document.getElementById("div2").appendChild(oldPassword);
-                        document.getElementById("div2").appendChild(oldPassword);
-                        document.getElementById("div2").appendChild(newPassword);
-                        document.getElementById("div2").appendChild(button);
-                        removeButton();
-
-                    }
-                </script>
                 <%
                     out.write("<br>");
                     FoodDAO dao = new FoodDAOImpl();

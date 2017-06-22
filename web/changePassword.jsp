@@ -17,24 +17,29 @@
         <form id="changePassword_form" action="changePasswordServlet" method="post">
             <h2>პაროლის შეცვლა</h2>
             <br>
-            <input name="oldPassword" placeholder="ახლანდელი პაროლი">
+            <input type="password" name="oldPassword" placeholder="ახლანდელი პაროლი">
             <br>
             <br>
-            <input name="newPassword" placeholder="ახალი პაროლი">
+            <input type="password" name="newPassword" placeholder="ახალი პაროლი">
             <br>
-            <br>    
-            <input name="repeatNewPassword" placeholder="გაიმეორეთ ახალი პაროლი">
-            <br>  
-            <br>  
+            <br>
+            <input type="password" name="repeatNewPassword" placeholder="გაიმეორეთ ახალი პაროლი">
+            <br>
+            <br>
             <input class="confirm_btn" type="submit" value="დადასტურება"/>
 
             <%
-                if (request.getAttribute("empty") != null && request.getAttribute("empty") == Boolean.TRUE) {
-                    out.write("<p style=\"color:red;\">გთხოვთ შეავსოთ ყველა ველი!</p>");
-                } else {
+                    if (request.getAttribute("empty") != null && request.getAttribute("empty") == Boolean.TRUE) {
+                        out.write("<p style=\"color:red;\">გთხოვთ შეავსოთ ყველა ველი!</p>");
+                    }
+                    if (request.getAttribute("error") != null && request.getAttribute("error") == Boolean.TRUE) {
+                        out.write("<p style=\"color:red;\">ახლანდელი პაროლი არასწორია!</p>");
+                    }
                     if (request.getAttribute("repeat") != null && request.getAttribute("repeat") == Boolean.TRUE) {
                         out.write("<p style=\"color:red;\">პაროლები არ ემთხვევა ერთმანეთს!</p>");
                     }
+
+                
             %>
         </form>
     </body>

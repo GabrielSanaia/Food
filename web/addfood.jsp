@@ -15,13 +15,14 @@
     </head>
     <body>
         <form align="center"  action="addFoodServlet" name="addFoodForm" method="post" enctype="multipart/form-data">
-            
-                <div class="addfood2">
-                    <button type="submit" class="button_1" name="action" value="button1" formaction="Interface.jsp">მთავარი გვერდი</button>
-                    <button type="submit" class="button_1" name="action" value="button1" formaction="addmenu.jsp">მენიუს დამატება</button>
-                    <button type="submit" class="button_1" name="action" value="button1" formaction="chooseMenus.jsp">მენიუს შერჩევა</button>
-                </div>
-         
+
+            <div class="addfood2">
+                <button style="margin-right: 3%;" type="submit" class="button_1" name="action" value="button1" formaction="profile.jsp">ჩემი გვერდი</button>
+                <button type="submit" class="button_1" name="action" value="button1" formaction="Interface.jsp">მთავარი გვერდი</button>
+                <button type="submit" class="button_1" name="action" value="button1" formaction="addmenu.jsp">მენიუს დამატება</button>
+                <button type="submit" class="button_1" name="action" value="button1" formaction="chooseMenus.jsp">მენიუს შერჩევა</button>
+            </div>
+
             <div class="add">
                 <h1>კერძის დამატება</h1>
                 <h2>სახელი</h2>
@@ -75,7 +76,7 @@
 
                                 name.setAttribute("maxlength", 15);
                                 comment.setAttribute("maxlength", 30);
-                                
+
                                 name.name = "name_" + counter;
                                 quantity.name = "quantity_" + counter;
                                 type.name = "type_" + counter;

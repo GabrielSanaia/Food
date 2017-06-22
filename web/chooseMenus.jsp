@@ -22,6 +22,7 @@
         <div>
             <form>
                 <div class="interface_main">
+                    <button style="margin-right: 3%;" type="submit" class="button_1" name="action" value="button1" formaction="profile.jsp">ჩემი გვერდი</button>
                     <button type="submit" class="button_1" name="action" value="button1" formaction="Interface.jsp">მთავარი გვერდი</button>
                     <button type="submit" class="button_1" name="action" value="button1" formaction="addfood.jsp">კერძის დამატება</button>
                     <button type="submit" class="button_1" name="action" value="button1" formaction="addmenu.jsp">მენიუს დამატება</button>
@@ -91,13 +92,13 @@
                         out.write("<form id=\"form\">");
                         out.write("<div class=\"menu_div\">");
                         out.write("<div class=\"photos_div\">");
-                        
+
                         out.write("<img src=\"" + "Public/photos/" + menu.getFoods().get(0).getImagePath() + "\" class=\"menu_photo\" onerror=\"this.src='Public/foto/icon2.png'\" >");
                         out.write("<img src=\"" + "Public/photos/" + menu.getFoods().get(1).getImagePath() + "\" class=\"menu_photo\" onerror=\"this.src='Public/foto/icon2.png'\" >");
                         out.write("<br>");
                         out.write("<img src=\"" + "Public/photos/" + menu.getFoods().get(2).getImagePath() + "\" class=\"menu_photo\" onerror=\"this.src='Public/foto/icon2.png'\" >");
                         out.write("<img src=\"" + "Public/photos/" + menu.getFoods().get(3).getImagePath() + "\" class=\"menu_photo\" onerror=\"this.src='Public/foto/icon2.png'\" >");
-                        
+
                         out.write("</div>");
 
                         out.write("<p id=\"menu_name\">" + menu.getName() + "</p>");

@@ -117,7 +117,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public void changePassword(int user_id, String oldPassword, String newPassword) {
+    public boolean changePassword(int user_id, String oldPassword, String newPassword) {
 
         try {
             User user = getUserById(user_id);
@@ -127,11 +127,14 @@ public class UserDAOImpl implements UserDAO {
                 pstmt = conn.prepareStatement("UPDATE food_user SET password = ? WHERE id= ? ");
                 pstmt.setInt(1, newPassword.hashCode());
                 pstmt.setInt(2, user_id);
-                pstmt.executeUpdate();
-                
+                int b = pstmt.executeUpdate();
+                if(b>0){
+                    return true;
+                }
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
+        return false;
     }
 }

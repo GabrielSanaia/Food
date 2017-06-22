@@ -10,5 +10,5 @@ public interface UserDAO {
 
     User getUserById(int id);
 
-    void changePassword(int user_id, String oldPassword, String newPassword);
+    boolean changePassword(int user_id, String oldPassword, String newPassword);
 }
