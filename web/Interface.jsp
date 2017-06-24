@@ -25,11 +25,11 @@
         </style>
     </head>
     <body>
-        <div>
+        <div style="display: inline-block; margin-bottom: 19px;">
             <form>
                 <div class="interface_main">
                     <button style="margin-right: 3%;" type="submit" class="button_1" name="action" value="button1" formaction="profile.jsp">ჩემი გვერდი</button>
-                    <button type="submit" class="button_1" name="action" value="button1" formaction="Interface.jsp">მთავარი გვერდი</button>
+                    <a type="submit" class="button_1" name="action" value="button1" href="Interface.jsp?page=1">მთავარი გვერდი</a>
                     <button type="submit" class="button_1" name="action" value="button1" formaction="addfood.jsp">კერძის დამატება</button>
                     <button type="submit" class="button_1" name="action" value="button1" formaction="addmenu.jsp">მენიუს დამატება</button>
                     <button type="submit" class="button_1" name="action" value="button1" formaction="chooseMenus.jsp">მენიუს შერჩევა</button>
@@ -39,71 +39,91 @@
                 <input style="float:right" class="search_button" type="submit" value="ძებნა">
                 <input class="search_1" style="float:right;font-size: 12px;" type="search" name="search" placeholder="კერძის ძებნა">
             </form>
+
             <div class="interface_2">
                 <img src="Public/foto/interface.jpg" style="width:100%; height:250px;">
                 <%
-                    ArrayList<Food> searchFoods = (ArrayList) request.getAttribute("searchList");
+                    String spageid = request.getParameter("page");
+                    int pageid = Integer.parseInt(spageid);
 
-                    if (searchFoods == null) {
-                        ArrayList<Food> foods = new ArrayList<Food>();
-                        FoodDAO dao = new FoodDAOImpl();
-                        foods = dao.getAllFoods();
-                        Collections.shuffle(foods);
+                    ArrayList<Food> foods = new ArrayList<Food>();
+                    FoodDAO dao = new FoodDAOImpl();
+                    foods = dao.getAllFoods();
 
-                        for (int i = 0; i < 6; i++) {
-                            int size = foods.size();
-                            if (i >= size) {
-                                break;
-                            }
-                            Food food = foods.get(i);
+                    //Collections.shuffle(foods);
+                    request.setAttribute("list", foods);
 
-                            out.write("<form class=\"square_1\" action=\"interfaceServlet\" method=\"post\">");
-                            out.write("<img src= \"" + "Public/photos/" + food.getImagePath() + "\" class=\"photo\" onerror=\"this.src='Public/foto/icon2.png'\">");
+                    final int RESULTS_PER_PAGE = 4;
 
-                            out.write("<p class=\"head\"> " + food.getName().toString() + " </p>");
+                    int to = pageid * RESULTS_PER_PAGE;
+                    int from = to - RESULTS_PER_PAGE;
+                    for (int i = from; i < to; i++) {
 
-                            out.write("<p class=\"text_div\">" + "ტიპი: " + food.getFoodtype().toString() + " </p>");
-                            String ingredient_names = "";
-                            ArrayList<Ingredient> ins = food.getIngredients();
-                            for (Ingredient in : ins) {
-                                ingredient_names += in.getName() + ",";
-                            }
-                            ingredient_names = ingredient_names.substring(0, ingredient_names.length() - 1);
-                            out.write("<p class=\"text_div2\" display:inline>" + "ინგრედიენტები: " + ingredient_names + "</p>");
-                            out.write("<input name=\"foodId\" type=\"hidden\" value=\"" + food.getId() + "\"/>");
-                            out.write("<button class=\"div_button\" maxlength=\"10\"  >ვრცლად</button>");
-                            out.write("</form>");
+                        Food food = foods.get(i);
+
+                        out.write("<form class=\"square_1\" action=\"interfaceServlet\" method=\"post\">");
+                        out.write("<img src= \"" + "Public/photos/" + food.getImagePath() + "\" class=\"photo\" onerror=\"this.src='Public/foto/icon2.png'\">");
+
+                        out.write("<p class=\"head\"> " + food.getName().toString() + " </p>");
+
+                        out.write("<p class=\"text_div\">" + "ტიპი: " + food.getFoodtype().toString() + " </p>");
+                        String ingredient_names = "";
+                        ArrayList<Ingredient> ins = food.getIngredients();
+                        for (Ingredient in : ins) {
+                            ingredient_names += in.getName() + ",";
                         }
-                    } else if (searchFoods != null) {
-                        if (searchFoods.isEmpty()) {
-                            out.write("<p class=\"foodnotfoundlabel\">კერძი ვერ მოიძებნა</p>");
-                        }
-                        for (int i = 0; i < searchFoods.size(); i++) {
-                            int size = searchFoods.size();
-                            if (i >= size) {
-                                break;
-                            }
-                            Food food = searchFoods.get(i);
-
-                            out.write("<form class=\"square_1\" action=\"interfaceServlet\" method=\"post\">");
-                            out.write("<img src= " + "Public/photos/" + food.getImagePath() + " class=\"photo\" onerror=\"this.src='Public/foto/icon2.png'\" >");
-                            out.write("<p class=\"head\"> " + food.getName() + " </p>");
-
-                            out.write("<p class=\"text_div\">" + "ტიპი: " + food.getFoodtype().toString() + " </p>");
-                            String ingredient_names = "";
-                            ArrayList<Ingredient> ins = food.getIngredients();
-                            for (Ingredient in : ins) {
-                                ingredient_names += in.getName() + ",";
-                            }
-                            ingredient_names = ingredient_names.substring(0, ingredient_names.length() - 1);
-                            out.write("<p class=\"text_div2\" display:inline>" + "ინგრედიენტები: " + ingredient_names + "</p>");
-                            out.write("<input name=\"foodId\" type=\"hidden\" value=\"" + food.getId() + "\"/>");
-                            out.write("<button class=\"div_button\" maxlength=\"10\"  >ვრცლად</button>");
-                            out.write("</form>");
-                        }
+                        ingredient_names = ingredient_names.substring(0, ingredient_names.length() - 1);
+                        out.write("<p class=\"text_div2\" display:inline>" + "ინგრედიენტები: " + ingredient_names + "</p>");
+                        out.write("<input name=\"foodId\" type=\"hidden\" value=\"" + food.getId() + "\"/>");
+                        out.write("<button class=\"div_button\" maxlength=\"10\"  >ვრცლად</button>");
+                        out.write("</form>");
                     }
                 %>
             </div>
         </div>
+        <div>
+            <%
+                out.write(" <div style=\"margin-left:45%;margin-right:45%;margin-bottom:15px;\" class=\"pagination\">");
+                if (foods.size() >= 1) {
+                    out.write("<a href=\"Interface.jsp?page=1\">1</a>");
+                }
+
+                if (foods.size() >= 5) {
+                    out.write("<a href=\"Interface.jsp?page=2\">2</a>");
+                }
+                if (foods.size() >= 9) {
+                    out.write("<a href=\"Interface.jsp?page=3\">3</a>");
+                }
+                if (foods.size() >= 13) {
+                    out.write("<a href=\"Interface.jsp?page=4\">4</a>");
+                }
+                if (foods.size() >= 17) {
+                    out.write("<a href=\"Interface.jsp?page=5\">5</a>");
+                }
+                out.write("</div>");
+
+            %>
+        </div>
+
+        <style>
+            .pagination a {
+                background-color: #F1C54C;
+                text-align: center;
+                margin-bottom: 10px;
+                color: black;
+                margin-top: 10px;
+                padding: 8px 16px;
+                text-decoration: none;
+                transition: background-color .3s;
+            }
+
+            .pagination a.active {
+                background-color: #4CAF50;
+                color: white;
+            }
+            .pagination a:hover:not(.active) {background-color: #ddd;}
+        </style>
     </body>
+
+
 </html>

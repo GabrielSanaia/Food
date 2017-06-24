@@ -25,7 +25,7 @@ public class searchServlet extends HttpServlet {
         ArrayList<Food> foods = dao.getFoodByName(search);
         request.setAttribute("searchList", foods);
 
-        RequestDispatcher rd = request.getRequestDispatcher("Interface.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("searchedFoods.jsp");
         rd.forward(request, response);
 
     }

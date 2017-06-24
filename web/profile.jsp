@@ -36,7 +36,7 @@
 
         <form>
             <div class="interface_main" style="width: 100%;">
-                <button type="submit" class="button_1" name="action" value="button1" formaction="Interface.jsp">მთავარი გვერდი</button>
+                <a type="submit" class="button_1" name="action" value="button1" href="Interface.jsp?page=1">მთავარი გვერდი</a>
                 <button type="submit" class="button_1" name="action" value="button1" formaction="addfood.jsp">კერძის დამატება</button>
                 <button type="submit" class="button_1" name="action" value="button1" formaction="addmenu.jsp">მენიუს დამატება</button>
                 <button type="submit" class="button_1" name="action" value="button1" formaction="chooseMenus.jsp">მენიუს შერჩევა</button>
@@ -60,7 +60,7 @@
                     out.write("<h3>" + " სქესი:" + user.getGender().toString() + "</h3>");
                     out.write("</div>");
                 %>
-                
+
             </div>
             <form id="div2" action="changePasswordServlet"  method="post">
                 <button class="password_button" id="button" formaction="changePassword.jsp">პაროლის შეცვლა</button>
