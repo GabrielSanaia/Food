@@ -26,6 +26,10 @@
         <servlet-name>searchMenusServlet</servlet-name>
         <servlet-class>Servlet.searchMenusServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>logoutServlet</servlet-name>
+        <servlet-class>Servlet.logoutServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>searchServlet</servlet-name>
         <url-pattern>/searchServlet</url-pattern>
@@ -45,6 +49,10 @@
     <servlet-mapping>
         <servlet-name>searchMenusServlet</servlet-name>
         <url-pattern>/searchMenusServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>logoutServlet</servlet-name>
+        <url-pattern>/logoutServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
@@ -95,8 +103,7 @@
         <servlet-name>foodServlet</servlet-name>
         <url-pattern>/foodServlet</url-pattern>
     </servlet-mapping>
-    
-        <servlet>
+    <servlet>
         <servlet-name>changePasswordServlet</servlet-name>
         <servlet-class>Servlet.changePasswordServlet</servlet-class>
     </servlet>

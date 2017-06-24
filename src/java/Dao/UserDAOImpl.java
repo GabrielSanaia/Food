@@ -37,13 +37,14 @@ public class UserDAOImpl implements UserDAO {
 
         try {
 
-            pstmt = conn.prepareStatement("INSERT INTO food_user (name,surname,username,password,gender) VALUES (?,?,?,?,?);");
+            pstmt = conn.prepareStatement("INSERT INTO food_user (name,surname,username,password,gender,imagepath) VALUES (?,?,?,?,?,?);");
 
             pstmt.setString(1, user.getName());
             pstmt.setString(2, user.getSurName());
             pstmt.setString(3, user.getUsername());
             pstmt.setInt(4, user.getPassword().hashCode());
             pstmt.setString(5, user.getGender().name());
+            pstmt.setString(6, user.getImagePath());
             pstmt.executeUpdate();
 
         } catch (SQLException ex) {
@@ -70,8 +71,8 @@ public class UserDAOImpl implements UserDAO {
                 String name = rs.getString("name");
                 String surname = rs.getString("surname");
                 Gender gender = Gender.valueOf(rs.getString("gender"));
-
-                User user = new User(id, name, surname, username, password, gender);
+                String imagePath = rs.getString("imagepath");
+                User user = new User(id, name, surname, username, password, gender, imagePath);
                 return user;
 
             } else {
@@ -105,8 +106,8 @@ public class UserDAOImpl implements UserDAO {
                 String username = rs.getString("username");
                 String password = rs.getString("password");
                 Gender gender = Gender.valueOf(rs.getString("gender"));
-
-                User user = new User(id, name, surname, username, password, gender);
+                String imagePath = rs.getString("imagepath");
+                User user = new User(id, name, surname, username, password, gender, imagePath);
                 return user;
 
             }
@@ -128,7 +129,7 @@ public class UserDAOImpl implements UserDAO {
                 pstmt.setInt(1, newPassword.hashCode());
                 pstmt.setInt(2, user_id);
                 int b = pstmt.executeUpdate();
-                if(b>0){
+                if (b > 0) {
                     return true;
                 }
             }

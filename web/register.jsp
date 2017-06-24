@@ -19,13 +19,15 @@
         <div class="register">
 
             <h1 id=registrationlabel >რეგისტრაცია</h1> <br>
-            <form align="center" class="center" action="RegisterServlet" name="registerForm" method="post">
+            <form align="center" class="center" action="RegisterServlet" name="registerForm" method="post" enctype="multipart/form-data">
                 <h3>სახელი:</h3>
                 <input id="1" type="text" name="name" /> <br>
                 <h3>გვარი:</h3>
                 <input type="text" name="surname" /> <br>
                 <h3>მომ. სახ. :</h3>
                 <input type="text" name="username" /> <br>
+                <h2>სურათი</h2>
+                <input type="file" name="file" size="50" /> <br>
                 <h3>პაროლი:</h3>
                 <input type="password" name="password" /> <br>
                 <h3>სქესი:</h3>

@@ -16,27 +16,33 @@ public class User {
     private String password;
 
     private Gender gender;
+    
+    private String imagePath;
 
     public User() {
     }
-  
 
-    public User(int id, String name, String surName, String username, String password, Gender gender) {
+    public User(int id, String name, String surName, String username, String password, Gender gender, String imagePath) {
         this.id = id;
         this.name = name;
         this.surName = surName;
         this.username = username;
         this.password = password;
         this.gender = gender;
+        this.imagePath = imagePath;
     }
 
-    public User(String name, String surName, String username, String password, Gender gender) {
+    public User(String name, String surName, String username, String password, Gender gender, String imagePath) {
         this.name = name;
         this.surName = surName;
         this.username = username;
         this.password = password;
         this.gender = gender;
+        this.imagePath = imagePath;
     }
+  
+
+
 
 
     public int getId() {
@@ -87,6 +93,14 @@ public class User {
         this.username = username;
     }
 
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 3;

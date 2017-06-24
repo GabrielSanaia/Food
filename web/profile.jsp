@@ -33,80 +33,86 @@
         </style>
     </head>
     <body style="background-color: white;">
-        
-            <form>
-                <div class="interface_main" style="width: 100%;">
-                    <button type="submit" class="button_1" name="action" value="button1" formaction="Interface.jsp">მთავარი გვერდი</button>
-                    <button type="submit" class="button_1" name="action" value="button1" formaction="addfood.jsp">კერძის დამატება</button>
-                    <button type="submit" class="button_1" name="action" value="button1" formaction="addmenu.jsp">მენიუს დამატება</button>
-                    <button type="submit" class="button_1" name="action" value="button1" formaction="chooseMenus.jsp">მენიუს შერჩევა</button>
+
+        <form>
+            <div class="interface_main" style="width: 100%;">
+                <button type="submit" class="button_1" name="action" value="button1" formaction="Interface.jsp">მთავარი გვერდი</button>
+                <button type="submit" class="button_1" name="action" value="button1" formaction="addfood.jsp">კერძის დამატება</button>
+                <button type="submit" class="button_1" name="action" value="button1" formaction="addmenu.jsp">მენიუს დამატება</button>
+                <button type="submit" class="button_1" name="action" value="button1" formaction="chooseMenus.jsp">მენიუს შერჩევა</button>
+                <form action="logoutServlet" method="post">
                     <button style="margin-left: 15px;" type="submit" class="button_1" name="action" value="button1" formaction="index.jsp">გასვლა</button>
-
-                </div>
-            </form>
-
-            <div class="interface_user">
-                
-                    
-                    <%
-                        out.write("<h2> მომხმარებელი:" + " " + user.getName() + " " + user.getSurName() + " </h2>");
-                        %>
-                        <div style=" display: inline-block; float: left;">
-                        <%
-                       
-                        out.write("<h3 style=\"text-align: left; margin-left : 10%; \"> მეტსახელი :" + user.getUsername() + "</h3>");
-                        out.write("<h3 style=\"text-align: left; margin-left : 10%;\"> სქესი:" + user.getGender().toString() + "</h3>");
-                    %>
-                   
-                </div>
-                <form id="div2" action="changePasswordServlet"  method="post">
-                        <button class="password_button" id="button" formaction="changePassword.jsp">პაროლის შეცვლა</button>
-
-                    </form>
-                <br>
-                <br>
-                <br>
-                <br>
-                
-                <%
-                    out.write("<br>");
-                    FoodDAO dao = new FoodDAOImpl();
-
-                    ArrayList<Food> foods = dao.getFoodsByUserId((int) request.getSession().getAttribute("id"));
-                    if (!foods.isEmpty()) {
-                        out.write("<h2>მომხმარებლის დამატებული კერძები</h2>");
-                    } else {
-                        out.write("<h3>მომხმარებლის არ აქვს დამატებული კერძი</h3>");
-                    }
-                    Collections.shuffle(foods);
-
-                    for (int i = 0; i < foods.size(); i++) {
-                        int size = foods.size();
-                        if (i >= size) {
-                            break;
-                        }
-                        Food food = foods.get(i);
-
-                        out.write("<form class=\"square_1\" action=\"interfaceServlet\" method=\"post\">");
-                        out.write("<img src= \"" + "Public/photos/" + food.getImagePath() + "\" class=\"photo\" onerror=\"this.src='Public/foto/icon2.png'\">");
-
-                        out.write("<p class=\"head\"> " + food.getName().toString() + " </p>");
-
-                        out.write("<p class=\"text_div\">" + "ტიპი: " + food.getFoodtype().toString() + " </p>");
-                        String ingredient_names = "";
-                        ArrayList<Ingredient> ins = food.getIngredients();
-                        for (Ingredient in : ins) {
-                            ingredient_names += in.getName() + ",";
-                        }
-                        ingredient_names = ingredient_names.substring(0, ingredient_names.length() - 1);
-                        out.write("<p class=\"text_div2\" display:inline>" + "ინგრედიენტები: " + ingredient_names + "</p>");
-                        out.write("<input name=\"foodId\" type=\"hidden\" value=\"" + food.getId() + "\"/>");
-                        out.write("<button class=\"div_button\" maxlength=\"10\"  >ვრცლად</button>");
-                        out.write("</form>");
-
-                    }
-                %>
+                </form> 
             </div>
-        
+        </form>
+
+
+        <div class="interface_user">
+            <%
+                out.write("<h2> მომხმარებელი:" + " " + user.getName() + " " + user.getSurName() + " </h2>");
+            %>
+            <div style="float: left; display: inline-block;">
+                <%
+                    out.write("<img class=\"user_phoho\" src =\" " + "Public/photos/" + user.getImagePath() + " \"/>");
+                    out.write("<div style=\"float:left; margin-left:130px; margin-top:27px;\">");
+                    out.write("<h3 style=\" \" > მეტსახელი :" + user.getUsername() + "</h3>");
+
+                    out.write("<h3>" + " სქესი:" + user.getGender().toString() + "</h3>");
+                    out.write("</div>");
+                %>
+                
+            </div>
+            <form id="div2" action="changePasswordServlet"  method="post">
+                <button class="password_button" id="button" formaction="changePassword.jsp">პაროლის შეცვლა</button>
+
+            </form>
+            <br><br>
+            <br>
+            <br>
+            <br>  
+            <br><br><br><br><br>
+
+            <%
+                out.write("<br>");
+                out.write("<br>");
+                out.write("<br>");
+                FoodDAO dao = new FoodDAOImpl();
+
+                ArrayList<Food> foods = dao.getFoodsByUserId((int) request.getSession().getAttribute("id"));
+                if (!foods.isEmpty()) {
+                    out.write("<h2>მომხმარებლის დამატებული კერძები</h2>");
+                } else {
+                    out.write("<h3>მომხმარებლის არ აქვს დამატებული კერძი</h3>");
+                }
+                Collections.shuffle(foods);
+
+                for (int i = 0; i < foods.size(); i++) {
+                    int size = foods.size();
+                    if (i >= size) {
+                        break;
+                    }
+                    Food food = foods.get(i);
+
+                    out.write("<form class=\"square_1\" action=\"interfaceServlet\" method=\"post\">");
+                    out.write("<img src= \"" + "Public/photos/" + food.getImagePath() + "\" class=\"photo\" onerror=\"this.src='Public/foto/icon2.png'\">");
+
+                    out.write("<p class=\"head\"> " + food.getName().toString() + " </p>");
+
+                    out.write("<p class=\"text_div\">" + "ტიპი: " + food.getFoodtype().toString() + " </p>");
+                    String ingredient_names = "";
+                    ArrayList<Ingredient> ins = food.getIngredients();
+                    for (Ingredient in : ins) {
+                        ingredient_names += in.getName() + ",";
+                    }
+                    ingredient_names = ingredient_names.substring(0, ingredient_names.length() - 1);
+                    out.write("<p class=\"text_div2\" display:inline>" + "ინგრედიენტები: " + ingredient_names + "</p>");
+                    out.write("<input name=\"foodId\" type=\"hidden\" value=\"" + food.getId() + "\"/>");
+                    out.write("<button class=\"div_button\" maxlength=\"10\"  >ვრცლად</button>");
+                    out.write("</form>");
+
+                }
+            %>
+        </div>
+
     </body>
 </html> 
