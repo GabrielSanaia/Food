@@ -12,6 +12,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
+
 <html>
     <head>
         <title>მთავარი გვერდი</title>
@@ -43,15 +44,36 @@
             <div class="interface_2">
                 <img src="Public/foto/interface.jpg" style="width:100%; height:250px;">
                 <%
+
                     String spageid = request.getParameter("page");
                     int pageid = Integer.parseInt(spageid);
 
+                    HttpSession session1 = request.getSession();
+
+                    if (session1.getAttribute("check") == null) {
+
+                        session1.setAttribute("check", true);
+                    } else {
+                        session1.setAttribute("check", false);
+                    }
+
                     ArrayList<Food> foods = new ArrayList<Food>();
                     FoodDAO dao = new FoodDAOImpl();
-                    foods = dao.getAllFoods();
+                    boolean check = (boolean) session1.getAttribute("check");
+                    if (pageid == 1 && check == true) {
+                        foods = dao.getAllFoods();
+                        Collections.shuffle(foods);
 
-                    //Collections.shuffle(foods);
-                    request.setAttribute("list", foods);
+                        session1.setAttribute("check", false);
+                    } else {
+                        foods = (ArrayList<Food>) session1.getAttribute("al");
+                    }
+                    if (pageid >= 2) {
+
+                        foods = (ArrayList<Food>) request.getSession().getAttribute("al");
+                    }
+
+                    session1.setAttribute("al", foods);
 
                     final int RESULTS_PER_PAGE = 4;
 
@@ -80,16 +102,16 @@
                     }
                 %>
             </div>
+
         </div>
         <div>
             <%
-                out.write(" <div style=\"margin-left:45%;margin-right:45%;margin-bottom:15px;\" class=\"pagination\">");
+                out.write(" <form style=\"margin-left:45%;margin-right:45%;margin-bottom:15px;\" class=\"pagination\" >");
                 if (foods.size() >= 1) {
                     out.write("<a href=\"Interface.jsp?page=1\">1</a>");
                 }
-
                 if (foods.size() >= 5) {
-                    out.write("<a href=\"Interface.jsp?page=2\">2</a>");
+                    out.write("<a type=\"submit\"  href=\"Interface.jsp?page=2\">2</a>");
                 }
                 if (foods.size() >= 9) {
                     out.write("<a href=\"Interface.jsp?page=3\">3</a>");
@@ -100,7 +122,7 @@
                 if (foods.size() >= 17) {
                     out.write("<a href=\"Interface.jsp?page=5\">5</a>");
                 }
-                out.write("</div>");
+                out.write("</form>");
 
             %>
         </div>
