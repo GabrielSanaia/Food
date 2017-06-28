@@ -1,5 +1,6 @@
 package Dao;
 
+import Model.Food;
 import Model.User;
 
 public interface UserDAO {
@@ -11,4 +12,6 @@ public interface UserDAO {
     User getUserById(int id);
 
     boolean changePassword(int user_id, String oldPassword, String newPassword);
+    
+    void addFavorite(User user,Food food);
 }

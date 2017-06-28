@@ -1,6 +1,7 @@
 package Dao;
 
 import Enum.Gender;
+import Model.Food;
 import Model.User;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -138,4 +139,21 @@ public class UserDAOImpl implements UserDAO {
         }
         return false;
     }
+
+    @Override
+    public void addFavorite(User user, Food food) {
+
+        try {
+
+            pstmt = conn.prepareStatement("INSERT INTO favorites (user_id,food_id) VALUES (?,?);");
+            pstmt.setInt(1, user.getId());
+            pstmt.setInt(2, food.getId());
+            pstmt.executeUpdate();
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
 }
+

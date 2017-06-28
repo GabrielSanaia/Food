@@ -48,32 +48,32 @@
                     String spageid = request.getParameter("page");
                     int pageid = Integer.parseInt(spageid);
 
-                    HttpSession session1 = request.getSession();
+                    
 
-                    if (session1.getAttribute("check") == null) {
+                    if (session.getAttribute("check") == null) {
 
-                        session1.setAttribute("check", true);
+                        session.setAttribute("check", true);
                     } else {
-                        session1.setAttribute("check", false);
+                        session.setAttribute("check", false);
                     }
 
                     ArrayList<Food> foods = new ArrayList<Food>();
                     FoodDAO dao = new FoodDAOImpl();
-                    boolean check = (boolean) session1.getAttribute("check");
+                    boolean check = (boolean) session.getAttribute("check");
                     if (pageid == 1 && check == true) {
                         foods = dao.getAllFoods();
-                        Collections.shuffle(foods);
+                       // Collections.shuffle(foods);
 
-                        session1.setAttribute("check", false);
+                        session.setAttribute("check", false);
                     } else {
-                        foods = (ArrayList<Food>) session1.getAttribute("al");
+                        foods = (ArrayList<Food>) session.getAttribute("al");
                     }
                     if (pageid >= 2) {
 
                         foods = (ArrayList<Food>) request.getSession().getAttribute("al");
                     }
 
-                    session1.setAttribute("al", foods);
+                    session.setAttribute("al", foods);
 
                     final int RESULTS_PER_PAGE = 4;
 
