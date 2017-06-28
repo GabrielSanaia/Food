@@ -15,7 +15,7 @@
             body{
                 background: url("Public/foto/bg1.jpg");
             }
-        </style>
+        </style> 
     </head>
     <body>
         <div class="interface_2">
