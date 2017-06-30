@@ -44,85 +44,87 @@
             <div class="interface_2">
                 <img src="Public/foto/interface.jpg" style="width:100%; height:250px;">
                 <%
+                    try {
+                        String spageid = request.getParameter("page");
+                        int pageid = Integer.parseInt(spageid);
 
-                    String spageid = request.getParameter("page");
-                    int pageid = Integer.parseInt(spageid);
+                        if (session.getAttribute("check") == null) {
 
-                    
-
-                    if (session.getAttribute("check") == null) {
-
-                        session.setAttribute("check", true);
-                    } else {
-                        session.setAttribute("check", false);
-                    }
-
-                    ArrayList<Food> foods = new ArrayList<Food>();
-                    FoodDAO dao = new FoodDAOImpl();
-                    boolean check = (boolean) session.getAttribute("check");
-                    if (pageid == 1 && check == true) {
-                        foods = dao.getAllFoods();
-                       // Collections.shuffle(foods);
-
-                        session.setAttribute("check", false);
-                    } else {
-                        foods = (ArrayList<Food>) session.getAttribute("al");
-                    }
-                    if (pageid >= 2) {
-
-                        foods = (ArrayList<Food>) request.getSession().getAttribute("al");
-                    }
-
-                    session.setAttribute("al", foods);
-
-                    final int RESULTS_PER_PAGE = 4;
-
-                    int to = pageid * RESULTS_PER_PAGE;
-                    int from = to - RESULTS_PER_PAGE;
-                    for (int i = from; i < to; i++) {
-
-                        Food food = foods.get(i);
-
-                        out.write("<form class=\"square_1\" action=\"interfaceServlet\" method=\"post\">");
-                        out.write("<img src= \"" + "Public/photos/" + food.getImagePath() + "\" class=\"photo\" onerror=\"this.src='Public/foto/icon2.png'\">");
-
-                        out.write("<p class=\"head\"> " + food.getName().toString() + " </p>");
-
-                        out.write("<p class=\"text_div\">" + "ტიპი: " + food.getFoodtype().toString() + " </p>");
-                        String ingredient_names = "";
-                        ArrayList<Ingredient> ins = food.getIngredients();
-                        for (Ingredient in : ins) {
-                            ingredient_names += in.getName() + ",";
+                            session.setAttribute("check", true);
+                        } else {
+                            session.setAttribute("check", false);
                         }
-                        ingredient_names = ingredient_names.substring(0, ingredient_names.length() - 1);
-                        out.write("<p class=\"text_div2\" display:inline>" + "ინგრედიენტები: " + ingredient_names + "</p>");
-                        out.write("<input name=\"foodId\" type=\"hidden\" value=\"" + food.getId() + "\"/>");
-                        out.write("<button class=\"div_button\" maxlength=\"10\"  >ვრცლად</button>");
-                        out.write("</form>");
-                    }
+
+                        ArrayList<Food> foods = new ArrayList<Food>();
+                        FoodDAO dao = new FoodDAOImpl();
+                        boolean check = (boolean) session.getAttribute("check");
+                        if (pageid == 1 && check == true) {
+                            foods = dao.getAllFoods();
+                            Collections.shuffle(foods);
+
+                            session.setAttribute("check", false);
+                        } else {
+                            foods = (ArrayList<Food>) session.getAttribute("al");
+                        }
+                        if (pageid >= 2) {
+
+                            foods = (ArrayList<Food>) request.getSession().getAttribute("al");
+                        }
+
+                        session.setAttribute("al", foods);
+
+                        final int RESULTS_PER_PAGE = 4;
+
+                        int to = pageid * RESULTS_PER_PAGE;
+                        int from = to - RESULTS_PER_PAGE;
+                        for (int i = from; i < to; i++) {
+
+                            Food food = foods.get(i);
+
+                            out.write("<form class=\"square_1\" action=\"interfaceServlet\" method=\"post\">");
+                            out.write("<img src= \"" + "Public/photos/" + food.getImagePath() + "\" class=\"photo\" onerror=\"this.src='Public/foto/icon2.png'\">");
+
+                            out.write("<p class=\"head\"> " + food.getName().toString() + " </p>");
+
+                            out.write("<p class=\"text_div\">" + "ტიპი: " + food.getFoodtype().toString() + " </p>");
+                            String ingredient_names = "";
+                            ArrayList<Ingredient> ins = food.getIngredients();
+                            for (Ingredient in : ins) {
+                                ingredient_names += in.getName() + ",";
+                            }
+                            ingredient_names = ingredient_names.substring(0, ingredient_names.length() - 1);
+                            out.write("<p class=\"text_div2\" display:inline>" + "ინგრედიენტები: " + ingredient_names + "</p>");
+                            out.write("<input name=\"foodId\" type=\"hidden\" value=\"" + food.getId() + "\"/>");
+                            out.write("<button class=\"div_button\" maxlength=\"10\"  >ვრცლად</button>");
+                            out.write("</form>");
+                        }
+
                 %>
             </div>
 
         </div>
         <div>
-            <%
-                out.write(" <form style=\"margin-left:45%;margin-right:45%;margin-bottom:15px;\" class=\"pagination\" >");
-                if (foods.size() >= 1) {
-                    out.write("<a href=\"Interface.jsp?page=1\">1</a>");
+            <%                    out.write(" <form style=\"margin-left:45%;margin-right:45%;margin-bottom:15px;\" class=\"pagination\" >");
+                    if (foods.size() >= 1) {
+                        out.write("<a href=\"Interface.jsp?page=1\">1</a>");
+                    }
+                    if (foods.size() >= 5) {
+                        out.write("<a type=\"submit\"  href=\"Interface.jsp?page=2\">2</a>");
+                    }
+                    if (foods.size() >= 9) {
+                        out.write("<a href=\"Interface.jsp?page=3\">3</a>");
+                    }
+                    if (foods.size() >= 13) {
+                        out.write("<a href=\"Interface.jsp?page=4\">4</a>");
+                    }
+                    if (foods.size() >= 17) {
+                        out.write("<a href=\"Interface.jsp?page=5\">5</a>");
+                    }
+                    out.write("</form>");
+                } catch (NullPointerException ex) {
+
+                    out.write("<p> კერძები ვერ მოიძებნა! </p>");
                 }
-                if (foods.size() >= 5) {
-                    out.write("<a type=\"submit\"  href=\"Interface.jsp?page=2\">2</a>");
-                }
-                if (foods.size() >= 9) {
-                    out.write("<a href=\"Interface.jsp?page=3\">3</a>");
-                }
-                if (foods.size() >= 13) {
-                    out.write("<a href=\"Interface.jsp?page=4\">4</a>");
-                }
-                if (foods.size() >= 17) {
-                    out.write("<a href=\"Interface.jsp?page=5\">5</a>");
-                }
-                out.write("</form>");
 
             %>
         </div>

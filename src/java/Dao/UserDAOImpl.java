@@ -1,13 +1,13 @@
 package Dao;
 
 import Enum.Gender;
-import Model.Food;
 import Model.User;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -141,13 +141,13 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public void addFavorite(User user, Food food) {
+    public void addFavorite(int user_id, int food_id) {
 
         try {
 
             pstmt = conn.prepareStatement("INSERT INTO favorites (user_id,food_id) VALUES (?,?);");
-            pstmt.setInt(1, user.getId());
-            pstmt.setInt(2, food.getId());
+            pstmt.setInt(1, user_id);
+            pstmt.setInt(2, food_id);
             pstmt.executeUpdate();
 
         } catch (SQLException ex) {
@@ -155,5 +155,57 @@ public class UserDAOImpl implements UserDAO {
         }
     }
 
-}
+    @Override
+    public boolean checkFavorite(int user_id, int food_id) {
 
+        try {
+            pstmt = conn.prepareStatement("SELECT FROM favorites WHERE user_id = ? AND food_id = ?");
+            pstmt.setInt(1, user_id);
+            pstmt.setInt(2, food_id);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return false;
+    }
+
+    @Override
+    public ArrayList<Integer> getFavoritesForUser(int user_id) {
+
+        ArrayList<Integer> ins = new ArrayList<>();
+        try {
+            pstmt = conn.prepareStatement("SELECT FROM favorites WHERE user_id = ? AND food_id = ?");
+
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+
+                int food_id = rs.getInt("food_id");
+                ins.add(food_id);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return ins;
+    }
+
+    @Override
+    public void deleteFavorite(int user_id, int food_id) {
+        
+        try {
+            pstmt = conn.prepareStatement("DELETE FROM favorites WHERE user_id = ? AND food_id = ?");
+            pstmt.setInt(1, user_id);
+            pstmt.setInt(2, food_id);
+            pstmt.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+}

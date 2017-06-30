@@ -30,6 +30,14 @@
         <servlet-name>logoutServlet</servlet-name>
         <servlet-class>Servlet.logoutServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>addFavoriteServlet</servlet-name>
+        <servlet-class>Servlet.addFavoriteServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>deleteFavoriteServlet</servlet-name>
+        <servlet-class>Servlet.deleteFavoriteServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>searchServlet</servlet-name>
         <url-pattern>/searchServlet</url-pattern>
@@ -53,6 +61,14 @@
     <servlet-mapping>
         <servlet-name>logoutServlet</servlet-name>
         <url-pattern>/logoutServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>addFavoriteServlet</servlet-name>
+        <url-pattern>/addFavoriteServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>deleteFavoriteServlet</servlet-name>
+        <url-pattern>/deleteFavoriteServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

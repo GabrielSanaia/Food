@@ -12,6 +12,7 @@
     <head>
         <%
             int id = Integer.parseInt((String) request.getAttribute("id"));
+
             FoodDAO dao = new FoodDAOImpl();
             Food food = dao.getFoodById(id);
             out.write("<title>" + food.getName() + "</title>");
@@ -29,7 +30,7 @@
         <form action="foodServlet" method="post">
             <div class="interface_main">
                 <button style="margin-right: 3%;" type="submit" class="button_1" name="action" value="button1" formaction="profile.jsp">ჩემი გვერდი</button>
-              <a type="submit" class="button_1" name="action" value="button1" href="Interface.jsp?page=1">მთავარი გვერდი</a>
+                <a type="submit" class="button_1" name="action" value="button1" href="Interface.jsp?page=1">მთავარი გვერდი</a>
                 <button type="submit" class="button_1" name="action" value="button1" formaction="addfood.jsp">კერძის დამატება</button>
                 <button type="submit" class="button_1" name="action" value="button1" formaction="addmenu.jsp">მენიუს დამატება</button>
                 <button type="submit" class="button_1" name="action" value="button1" formaction="chooseMenus.jsp">მენიუს შერჩევა</button>
@@ -39,19 +40,42 @@
             <input class="search_button" style="float:right" type="submit" value="ძებნა">
             <input class="search_1" style="float:right;font-size: 12px;" type="search" name="search" placeholder="კერძის ძებნა">
         </form>
+
         <%
             out.write("<div class=\"interface_2\">");
 
             out.write("<img src=\"Public/foto/foodline.jpg\" class=\"photo_food\">");
             out.write("<div style=\"display :inline-block;float: left\"><img src= \"Public/photos/" + food.getImagePath() + " \" onerror=\"this.src='Public/foto/icon2.png'\" class=\"food_photo\"></div>");
-
-            out.write("<div class=\"food_name\" ><h1>" + food.getName() + "</h1>");
+            out.write("<h1>" + food.getName() + "</h1>");
+            out.write("<div class=\"food_name\">");
             out.write("<br>");
             UserDAO userdao = new UserDAOImpl();
             User user = userdao.getUserById(food.getUser_id());
-            out.write("<h3>" + "ავტორი:" + user.getName() + " " + user.getSurName() + "</h3>");
-            out.write("<h3 style=\"float: left;\">" + "ტიპი: " + food.getFoodtype().toString() + "</h3>");
+            out.write("<h3 class=\"food_txt\">" + "ავტორი:" + user.getName() + " " + user.getSurName() + "</h3>");
+            out.write("<h3 class=\"food_txt\">" + "ტიპი: " + food.getFoodtype().toString() + "</h3>");
             out.write("</div>");
+            out.write("<br>");
+            out.write("<br>");
+
+            boolean b = userdao.checkFavorite((int) request.getSession().getAttribute("id"), id);
+
+            if (b == false) {
+
+                out.write("<form action=\"addFavoriteServlet\" method=\"post\">");
+                out.write("<button class=\"favourite_btn\">ფავორიტებში დამატება</button>");
+                out.write("<input name=\"id\" type=\"hidden\" value=\"" + id + "\"/>");
+                out.write("</form>");
+
+            }
+            if(b == true) {
+
+                out.write("<form action=\"deleteFavoriteServlet\" method=\"post\">");
+                out.write("<button class=\"favourite_btn\">ფავორიტებიდან წაშლა</button>");
+                out.write("<input name=\"id\" type=\"hidden\" value=\"" + id + "\"/>");
+                out.write("</form>");
+
+            }
+
 
             out.write("<table>");
             out.write("<tr>");

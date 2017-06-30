@@ -245,7 +245,9 @@ input[type=password]
 
 }
 .food_name{
+    float:left;
     display: inline-block;
+    margin-left: 70px;
 }
 
 table {
@@ -476,4 +478,15 @@ tr:nth-child(even){background-color: #f2f2f2}
     width: 300px;
     margin-top: 15px;
     float:left;
+}
+.food_txt{
+    
+    margin-left: 30px;
+}
+.favourite_btn{
+    height: 30px;
+    color: white;
+     border: none;
+    background-color: #4CAF50; /* მწვანე */
+    margin-left:60px;
 }
