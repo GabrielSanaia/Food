@@ -14,7 +14,7 @@
         </style>
     </head>
     <body>
-        <form align="center"  action="addFoodServlet" name="addFoodForm" method="post" enctype="multipart/form-data">
+        <form align="center" action="addFoodServlet" name="addFoodForm" method="post" enctype="multipart/form-data">
 
             <div class="addfood2">
                 <button style="margin-right: 3%;" type="submit" class="button_1" name="action" value="button1" formaction="myProfile.jsp">ჩემი გვერდი</button>

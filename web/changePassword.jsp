@@ -9,7 +9,7 @@
         <link rel="icon" type="image/png" href="Public/foto/icon2.png" />
         <style>
             body{
-                background: url("Public/foto/bg1.jpg");
+                background: url("Public/foto/bg3.jpg");
             }
         </style>
     </head>
