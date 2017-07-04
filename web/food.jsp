@@ -29,7 +29,7 @@
     <body>
         <form action="foodServlet" method="post">
             <div class="interface_main">
-                <button style="margin-right: 3%;" type="submit" class="button_1" name="action" value="button1" formaction="profile.jsp">ჩემი გვერდი</button>
+                <button style="margin-right: 3%;" type="submit" class="button_1" name="action" value="button1" formaction="myProfile.jsp">ჩემი გვერდი</button>
                 <a type="submit" class="button_1" name="action" value="button1" href="Interface.jsp?page=1">მთავარი გვერდი</a>
                 <button type="submit" class="button_1" name="action" value="button1" formaction="addfood.jsp">კერძის დამატება</button>
                 <button type="submit" class="button_1" name="action" value="button1" formaction="addmenu.jsp">მენიუს დამატება</button>
@@ -51,31 +51,39 @@
             out.write("<br>");
             UserDAO userdao = new UserDAOImpl();
             User user = userdao.getUserById(food.getUser_id());
-            out.write("<h3 class=\"food_txt\">" + "ავტორი:" + user.getName() + " " + user.getSurName() + "</h3>");
-            out.write("<h3 class=\"food_txt\">" + "ტიპი: " + food.getFoodtype().toString() + "</h3>");
+            out.write("<form action=\"foodToUserServlet\" method=\"post\">");
+            out.write("<h3 class=\"food_txt\">" + "ავტორი:" + user.getName() + " " + user.getSurName() + "</h3> ");
+            out.write("<input name=\"user_id\"  type=\"hidden\" value=\"" + food.getUser_id() + "\"></input>");
+            if (food.getUser_id() != (int) request.getSession().getAttribute("id")) {
+
+                out.write("<input class=\"search_button\" style=\"margin-left:10px; text-align:center; height:29px;font-size:13px; margin-top:17px\"  type=\"submit\" value=\"მეტი\"></input>");
+            }
+            out.write("<br>");
+            out.write("<h3 class=\"food_txt\" style=\"margin-left:0px;\">" + "ტიპი: " + food.getFoodtype().toString() + "</h3>");
             out.write("</div>");
             out.write("<br>");
             out.write("<br>");
-
+            out.write("</form>");
             boolean b = userdao.checkFavorite((int) request.getSession().getAttribute("id"), id);
 
-            if (b == false) {
+            if (food.getUser_id() != (int) request.getSession().getAttribute("id")) {
+                if (b == false) {
 
-                out.write("<form action=\"addFavoriteServlet\" method=\"post\">");
-                out.write("<button class=\"favourite_btn\">ფავორიტებში დამატება</button>");
-                out.write("<input name=\"id\" type=\"hidden\" value=\"" + id + "\"/>");
-                out.write("</form>");
+                    out.write("<form action=\"addFavoriteServlet\" method=\"post\">");
+                    out.write("<button class=\"favourite_btn\">ფავორიტებში დამატება</button>");
+                    out.write("<input name=\"id\" type=\"hidden\" value=\"" + id + "\"/>");
+                    out.write("</form>");
 
+                }
+                if (b == true) {
+
+                    out.write("<form action=\"deleteFavoriteServlet\" method=\"post\">");
+                    out.write("<button class=\"favourite_btn\">ფავორიტებიდან წაშლა</button>");
+                    out.write("<input name=\"id\" type=\"hidden\" value=\"" + id + "\"/>");
+                    out.write("</form>");
+
+                }
             }
-            if(b == true) {
-
-                out.write("<form action=\"deleteFavoriteServlet\" method=\"post\">");
-                out.write("<button class=\"favourite_btn\">ფავორიტებიდან წაშლა</button>");
-                out.write("<input name=\"id\" type=\"hidden\" value=\"" + id + "\"/>");
-                out.write("</form>");
-
-            }
-
 
             out.write("<table>");
             out.write("<tr>");

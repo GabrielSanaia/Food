@@ -23,7 +23,7 @@ public class addFavoriteServlet extends HttpServlet {
         int userId = (int) request.getSession().getAttribute("id");
         
         UserDAO dao = new UserDAOImpl();
-        dao.addFavorite(userId, foodId);
+        dao.addFavorite(userId, foodId);    
         
         RequestDispatcher rd = request.getRequestDispatcher("food.jsp");
         request.setAttribute("id", ids);

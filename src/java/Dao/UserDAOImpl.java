@@ -1,6 +1,7 @@
 package Dao;
 
 import Enum.Gender;
+import Model.Food;
 import Model.User;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -174,29 +175,33 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public ArrayList<Integer> getFavoritesForUser(int user_id) {
+    public ArrayList<Food> getFavoritesForUser(int user_id) {
+        FoodDAO fdao = new FoodDAOImpl();
 
-        ArrayList<Integer> ins = new ArrayList<>();
+        ArrayList<Food> foods = new ArrayList<>();
         try {
-            pstmt = conn.prepareStatement("SELECT FROM favorites WHERE user_id = ? AND food_id = ?");
-
+            pstmt = conn.prepareStatement("SELECT * FROM favorites WHERE user_id = ?");
+            pstmt.setInt(1, user_id);
+            
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
 
                 int food_id = rs.getInt("food_id");
-                ins.add(food_id);
+                Food food = fdao.getFoodById(food_id);
+                food.setId(food_id);
+                foods.add(food);
             }
 
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-        return ins;
+        return foods;
     }
 
     @Override
     public void deleteFavorite(int user_id, int food_id) {
-        
+
         try {
             pstmt = conn.prepareStatement("DELETE FROM favorites WHERE user_id = ? AND food_id = ?");
             pstmt.setInt(1, user_id);

@@ -38,6 +38,10 @@
         <servlet-name>deleteFavoriteServlet</servlet-name>
         <servlet-class>Servlet.deleteFavoriteServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>foodToUserServlet</servlet-name>
+        <servlet-class>Servlet.foodToUserServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>searchServlet</servlet-name>
         <url-pattern>/searchServlet</url-pattern>
@@ -69,6 +73,10 @@
     <servlet-mapping>
         <servlet-name>deleteFavoriteServlet</servlet-name>
         <url-pattern>/deleteFavoriteServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>foodToUserServlet</servlet-name>
+        <url-pattern>/foodToUserServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

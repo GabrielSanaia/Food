@@ -12,7 +12,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
-
 <html>
     <head>
         <title>მთავარი გვერდი</title>
@@ -29,7 +28,7 @@
         <div style="display: inline-block; margin-bottom: 19px;">
             <form>
                 <div class="interface_main">
-                    <button style="margin-right: 3%;" type="submit" class="button_1" name="action" value="button1" formaction="profile.jsp">ჩემი გვერდი</button>
+                    <button style="margin-right: 3%;" type="submit" class="button_1" name="action" value="button1" formaction="myProfile.jsp">ჩემი გვერდი</button>
                     <a type="submit" class="button_1" name="action" value="button1" href="Interface.jsp?page=1">მთავარი გვერდი</a>
                     <button type="submit" class="button_1" name="action" value="button1" formaction="addfood.jsp">კერძის დამატება</button>
                     <button type="submit" class="button_1" name="action" value="button1" formaction="addmenu.jsp">მენიუს დამატება</button>
@@ -44,6 +43,7 @@
             <div class="interface_2">
                 <img src="Public/foto/interface.jpg" style="width:100%; height:250px;">
                 <%
+                    ArrayList<Food> foods = new ArrayList<Food>();
                     try {
                         String spageid = request.getParameter("page");
                         int pageid = Integer.parseInt(spageid);
@@ -55,7 +55,6 @@
                             session.setAttribute("check", false);
                         }
 
-                        ArrayList<Food> foods = new ArrayList<Food>();
                         FoodDAO dao = new FoodDAOImpl();
                         boolean check = (boolean) session.getAttribute("check");
                         if (pageid == 1 && check == true) {
@@ -101,15 +100,16 @@
 
                 %>
             </div>
-
         </div>
         <div>
-            <%                    out.write(" <form style=\"margin-left:45%;margin-right:45%;margin-bottom:15px;\" class=\"pagination\" >");
+
+            <%                  
+                out.write("<form style=\"margin-left:45%;margin-right:45%;margin-bottom:15px;\" class=\"pagination\" >");
                     if (foods.size() >= 1) {
                         out.write("<a href=\"Interface.jsp?page=1\">1</a>");
                     }
                     if (foods.size() >= 5) {
-                        out.write("<a type=\"submit\"  href=\"Interface.jsp?page=2\">2</a>");
+                        out.write("<a href=\"Interface.jsp?page=2\">2</a>");
                     }
                     if (foods.size() >= 9) {
                         out.write("<a href=\"Interface.jsp?page=3\">3</a>");
@@ -124,11 +124,30 @@
                 } catch (NullPointerException ex) {
 
                     out.write("<p> კერძები ვერ მოიძებნა! </p>");
-                }
+                } catch (IndexOutOfBoundsException ex) {
 
+                    out.write("</div>");
+                    out.write("</div>");
+                    out.write("<form style=\"margin-left:45%;margin-right:45%;margin-bottom:15px;\" class=\"pagination\" >");
+                    if (foods.size() >= 1) {
+                        out.write("<a href=\"Interface.jsp?page=1\">1</a>");
+                    }
+                    if (foods.size() >= 5) {
+                        out.write("<a href=\"Interface.jsp?page=2\">2</a>");
+                    }
+                    if (foods.size() >= 9) {
+                        out.write("<a href=\"Interface.jsp?page=3\">3</a>");
+                    }
+                    if (foods.size() >= 13) {
+                        out.write("<a href=\"Interface.jsp?page=4\">4</a>");
+                    }
+                    if (foods.size() >= 17) {
+                        out.write("<a href=\"Interface.jsp?page=5\">5</a>");
+                    }
+                    out.write("</form>");
+                }
             %>
         </div>
-
         <style>
             .pagination a {
                 background-color: #F1C54C;
@@ -148,6 +167,4 @@
             .pagination a:hover:not(.active) {background-color: #ddd;}
         </style>
     </body>
-
-
 </html>

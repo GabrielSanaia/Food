@@ -18,7 +18,7 @@ public interface UserDAO {
 
     boolean checkFavorite(int user_id, int food_id);
 
-    ArrayList<Integer> getFavoritesForUser(int user_id);
+    ArrayList<Food> getFavoritesForUser(int user_id);
 
     void deleteFavorite(int user_id, int food_id);
 }
