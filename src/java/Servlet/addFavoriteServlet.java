@@ -19,7 +19,7 @@ public class addFavoriteServlet extends HttpServlet {
 
         String ids =  request.getParameter("id");
         int foodId = Integer.parseInt(ids);
-
+        
         int userId = (int) request.getSession().getAttribute("id");
         
         UserDAO dao = new UserDAOImpl();
