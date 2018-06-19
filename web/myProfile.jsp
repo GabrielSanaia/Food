@@ -35,17 +35,17 @@
     <body style="background-color: white;">
 
         <form>
-            <div class="interface_main" style="width: 100%;">
+            <div class="interface_main" style="width: 80%;">
                 <a type="submit" class="button_1" name="action" value="button1" href="Interface.jsp?page=1">მთავარი გვერდი</a>
                 <button type="submit" class="button_1" name="action" value="button1" formaction="addfood.jsp">კერძის დამატება</button>
                 <button type="submit" class="button_1" name="action" value="button1" formaction="addmenu.jsp">მენიუს დამატება</button>
                 <button type="submit" class="button_1" name="action" value="button1" formaction="chooseMenus.jsp">მენიუს შერჩევა</button>
-                <form action="logoutServlet" method="post">
-                    <button style="margin-left: 15px;" type="submit" class="button_1" name="action" value="button1" formaction="index.jsp">გასვლა</button>
-                </form> 
+
             </div>
         </form>
-
+        <form action="logoutServlet" method="post">
+            <button style="margin-left: 15px;" type="submit" class="button_1" name="action" value="button1">გასვლა</button>
+        </form>
 
         <div class="interface_user">
             <%
@@ -116,8 +116,7 @@
         </div>
 
         <div style="overflow: hidden; text-align: center; background-color: white;width: 80%;margin-right: 10%;margin-left: 10%;height: 100%; ">
-            <%              
-                UserDAO udao = new UserDAOImpl();
+            <%                UserDAO udao = new UserDAOImpl();
 
                 ArrayList<Food> ffoods = udao.getFavoritesForUser((int) request.getSession().getAttribute("id"));
 

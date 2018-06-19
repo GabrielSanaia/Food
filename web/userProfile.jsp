@@ -40,9 +40,6 @@
                 <button type="submit" class="button_1" name="action" value="button1" formaction="addfood.jsp">კერძის დამატება</button>
                 <button type="submit" class="button_1" name="action" value="button1" formaction="addmenu.jsp">მენიუს დამატება</button>
                 <button type="submit" class="button_1" name="action" value="button1" formaction="chooseMenus.jsp">მენიუს შერჩევა</button>
-                <form action="logoutServlet" method="post">
-                    <button style="margin-left: 15px;" type="submit" class="button_1" name="action" value="button1" formaction="index.jsp">გასვლა</button>
-                </form> 
             </div>
         </form>
 

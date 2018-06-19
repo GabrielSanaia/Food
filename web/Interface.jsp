@@ -11,7 +11,7 @@
 <%@page import="Model.Food"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-
+    
 <html>
     <head>
         <title>მთავარი გვერდი</title>

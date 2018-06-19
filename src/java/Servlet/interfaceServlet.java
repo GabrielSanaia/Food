@@ -9,16 +9,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class interfaceServlet extends HttpServlet {
-
+    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String id = request.getParameter("foodId");
         response.setContentType("text/html");
         response.setCharacterEncoding("UTF-8");
-     
-        RequestDispatcher rd = request.getRequestDispatcher("food.jsp");
-        request.setAttribute("id",id);
         
+        RequestDispatcher rd = request.getRequestDispatcher("food.jsp");
+        request.setAttribute("id", id);
         rd.forward(request, response);
     }
 }

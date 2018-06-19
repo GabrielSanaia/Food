@@ -13,16 +13,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 public class LoginServlet extends HttpServlet {
-
+    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-       
+        
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-
+        
         UserDAO userDAO = new UserDAOImpl();
         User user = userDAO.getUser(username, password);
-
+        
         if (username.equals("") || password.equals("")) {
             request.setAttribute("isLoginFieldEmpty", true);
             RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
@@ -36,7 +36,7 @@ public class LoginServlet extends HttpServlet {
             HttpSession session = request.getSession();
             
             session.setAttribute("id", user.getId());
-            rd.forward(request, response);
+            response.sendRedirect("Interface.jsp?page=1");
         }
     }
 }
