@@ -44,7 +44,9 @@
             </div>
         </form>
         <form action="logoutServlet" method="post">
-            <button style="margin-left: 15px;" type="submit" class="button_1" name="action" value="button1">გასვლა</button>
+            <div style="background: gray">
+            <button style="margin-left: 7%; " type="submit" class="button_1" name="action" value="button1">გასვლა</button>
+            </div>
         </form>
 
         <div class="interface_user">

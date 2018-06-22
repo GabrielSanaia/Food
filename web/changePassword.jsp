@@ -14,6 +14,13 @@
         </style>
     </head>
     <body>
+        <form>
+       <div id="changePassword_div">
+                    <button style="margin-right: 3%;" type="submit" class="button_1" name="action" value="button1" formaction="myProfile.jsp">ჩემი გვერდი</button>
+                    <a type="submit" class="button_1" name="action" value="button1" href="Interface.jsp?page=1">მთავარი გვერდი</a>
+                </div>
+        </form>
+
         <form id="changePassword_form" action="changePasswordServlet" method="post">
             <h2>პაროლის შეცვლა</h2>
             <br>
