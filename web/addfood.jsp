@@ -65,6 +65,7 @@
                                 var name = document.createElement("input");
                                 var quantity = document.createElement("input");
                                 quantity.type = "number";
+                                quantity.min = "0.0";
 
                                 var type = document.createElement("select");
                                 var comment = document.createElement("textarea");
