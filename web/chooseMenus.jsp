@@ -6,6 +6,11 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="processor.MenuProcessor"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    response.setHeader("Pragma", "No-cache");
+    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+    response.setDateHeader("Expires", -1);
+%>
 <html>
     <head>
         <title>მენიუს შერჩევა</title>
