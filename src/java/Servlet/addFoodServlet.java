@@ -178,8 +178,8 @@ public class addFoodServlet extends HttpServlet {
                 Food food = new Food(ins, name, type, cookingway, imagePath, user_id);
                 FoodDAO dao = new FoodDAOImpl();
                 dao.addFood(food);
-                RequestDispatcher rd = request.getRequestDispatcher("Interface.jsp?page=1");
-                rd.forward(request, response);
+                RequestDispatcher rd = request.getRequestDispatcher("foodAddedSuccesfully.jsp");
+                response.sendRedirect("foodAddedSuccesfully.jsp");
             }
 
         } catch (NumberFormatException ex) {
